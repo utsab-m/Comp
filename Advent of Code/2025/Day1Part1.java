@@ -2,7 +2,7 @@ import java.io.*;
 
 public class Day1Part1 {
     public static void main(String[] args) {
-        File file = new File("Day1Part1Input.txt");
+        File file = new File("Day1Input.txt");
         String line;
         int c = 0;
         int pos = 50;

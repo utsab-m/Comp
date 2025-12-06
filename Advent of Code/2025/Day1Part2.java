@@ -2,7 +2,7 @@ import java.io.*;
 
 public class Day1Part2 {
     public static void main(String[] args) {
-        File file = new File("Day1Part1Input.txt");
+        File file = new File("Day1Input.txt");
         String line;
         int c = 0;
         int pos = 50;
@@ -13,12 +13,18 @@ public class Day1Part2 {
 
             while ((line = br.readLine()) != null) {
                 int turns = Integer.parseInt(line.substring(1));
+                int crosses = (pos + turns) / 100;
+
                 if (line.charAt(0) == 'L') {
                     turns *= -1;
                 } 
-                pos = (pos + turns) % 100;
-                if (pos == 0) c++;
+                
+                int nextPos = pos + turns;
+                pos = (nextPos) % 100;
 
+                
+
+                c += crosses;
             }
 
             br.close();
