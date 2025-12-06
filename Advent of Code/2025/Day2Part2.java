@@ -1,10 +1,32 @@
 import java.io.*;
 
-public class Day2Part1 {
-    public static boolean invalid(long num) {
+public class Day2Part2 {
+    public static boolean invalidSplit(String num, int numSplits) {
+        int length = num.length();
+        int numChars = length / numSplits;
+
+        String compare = num.substring(0, numChars);
+
+        for (int i = numChars; i < length; i += numChars) {
+            int start = i;
+            int end = i + numChars;
+            if (!num.substring(start, end).equals(compare)) return false;
+        }
+
+        return true;
+    }
+
+    public static boolean valid(long num) {
         String str = Long.toString(num);
         int n = str.length();
-        return str.substring(0, n / 2).equals(str.substring(n / 2));
+
+        for (int i = 2; i <= n; i++) {
+            if (n % i == 0) {
+                if (invalidSplit(str, i)) return false;
+            }
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
@@ -25,7 +47,7 @@ public class Day2Part1 {
                 long left = Long.parseLong(ends[0]), right = Long.parseLong(ends[1]);
                 
                 for (long i = left; i <= right; i++) {
-                    if (invalid(i)) sum += i;
+                    if (!valid(i)) sum += i;
                 }
             }
     
