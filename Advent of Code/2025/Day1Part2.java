@@ -6,12 +6,8 @@ public class Day1Part2 {
 
         long smallZ = Math.min(o, n), bigZ = Math.max(o, n);
 
-        System.out.println(smallZ);
         smallZ = (long)Math.floor((double)smallZ / 100);
-        System.out.println(smallZ);
-        System.out.println(bigZ);
         bigZ = (long)Math.ceil((double)bigZ / 100);
-        System.out.println(bigZ);
 
         z += bigZ - smallZ - 1;
 
