@@ -2,9 +2,20 @@
 using namespace std;
 using ll = long long;
 
-void print(string s, vector<ll>& v, ll sum) {
-    cout << s << sum << "\n";
-    for (ll n: v) cout << n << " \n";
+ll total = 0;
+vector<ll> p;
+ll sum = 0;
+ll dist = INT_MAX;
+
+void backtrack(int index) {
+    if (index == p.size()) return;
+    for (int i = index; i < p.size(); i++) {
+        sum += p[i];
+        ll d = abs((total - sum) - sum);
+        dist = min(dist, d);
+        backtrack(i+1);
+        sum -= p[i];
+    }
 }
 
 int main() {
@@ -16,10 +27,7 @@ int main() {
     int n;
     cin >> n;
 
-    vector<ll> p;
-
     ll c;
-    ll total = 0;
 
     while (n--) {
         cin >> c;
@@ -27,22 +35,9 @@ int main() {
         total += c;
     }
 
-    sort(p.begin(), p.end());
+    sort(p.begin(), p.end());   
 
-    for (int x: p) cout << x << " ";
+    backtrack(0);
 
-    vector<ll> l, r;
-
-    for (int i = p.size()-1; i>=0; i--) {
-        ll x = p[i];
-        if (left + x <= total / 2) {
-            left += x;
-            l.push_back(x);
-        } else r.push_back(x);
-    }
-
-    cout << (total - left) - left << "\n";
-
-    print("Left: ", l, left);
-    print("Right: ", r, total-left  );
+    cout << dist << "\n";
 }
