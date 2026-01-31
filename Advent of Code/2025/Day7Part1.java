@@ -19,12 +19,12 @@ public class Day7Part1 {
             int m = grid.size(), n = grid.get(0).length();
 
             Queue<int[]> q = new LinkedList<>();
-            Set<int[]> seen = new HashSet<>();
+            boolean[][] seen = new boolean[m+1][n+1];
 
             for (int i = 0; i < n; i++) {
                 if (grid.get(0).charAt(i) == 'S') {
                     q.add(new int[]{0, i});
-                    seen.add(new int[]{0, i});
+                    break;
                 }
             }
 
@@ -35,19 +35,19 @@ public class Day7Part1 {
                     int[] pos = q.poll();
                     int r = pos[0], c = pos[1];
 
-                    if (r < m && c >= 0 && c < n) {
+                    if (!seen[r][c] && r < m && c >= 0 && c < n) {
                         if (grid.get(r).charAt(c) == '^') {
                             splits++;
                             int[] left = new int[]{r, c-1}, right = new int[]{r, c+1};
-                            if (!seen.contains(left)) q.add(left);
-                            if (!seen.contains(right)) q.add(right);
+                            q.add(left);
+                            q.add(right);
                         } else {
                             int[] down = new int[]{r+1, c};
-                            if (!seen.contains(down)) q.add(down);
+                            q.add(down);
                         }
                     }
 
-                    
+                    seen[r][c] = true;
                 }
             }
     
