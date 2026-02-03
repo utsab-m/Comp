@@ -13,17 +13,16 @@ public class Day7Part2 {
         if (timelines[r][c] != 0) return timelines[r][c];
 
         char ch = grid.get(r).charAt(c);
+        long result = 0;
 
         if (ch == '^') {
-            timelines[r][c-1] = dfs(r, c-1, timelines);
-            timelines[r][c+1] = dfs(r, c+1, timelines);
-            
-            return timelines[r][c-1] + timelines[r][c+1];
+            result = dfs(r, c-1, timelines) + dfs(r, c+1, timelines);
+        } else {
+            result = dfs(r+1, c, timelines);
         }
-
-        timelines[r][c] = dfs(r+1, c, timelines);
         
-        return timelines[r][c];
+        timelines[r][c] = result;
+        return result;
     }
 
     public static void main(String[] args) {
