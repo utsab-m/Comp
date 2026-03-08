@@ -90,9 +90,11 @@
 #include <streambuf>
 #include <string>
 #include <typeinfo>
+#include <unordered_set>
 #include <utility>
 #include <valarray>
 #include <vector>
+
 
 #if __cplusplus >= 201103L
 #include <array>
