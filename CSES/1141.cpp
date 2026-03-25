@@ -15,7 +15,7 @@ int main() {
     }
 
     int i = 1, j = 1;
-    unordered_set<int> curr;
+    set<int> curr;
     int maxLength = INT_MIN;
 
     while (j <= n) {
@@ -23,15 +23,14 @@ int main() {
 
         if (curr.find(id) != curr.end()) {
             while (songs[i] != id) {
-                i++;
                 curr.erase(songs[i]);
+                i++;
             }
             i++;
         }
         
+        curr.insert(id);
         maxLength = max(maxLength, j - i + 1);
-
-        curr.insert(songs[j]);
         j++;
     }
 
