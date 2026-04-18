@@ -9,24 +9,49 @@ int main() {
     int n;
     cin >> n;
 
-    vector<pair<int, int>> cubes;
+    vector<int> towers;
 
-    for (int i = 1; i <= n; i++) {
+    // for (int i = 0; i < n; i++) {
+    //     int k;
+    //     cin >> k;
+
+    //     if (towers.empty()) towers.push_back(k);
+    //     else {
+    //         int l = 0, r = towers.size();
+
+    //         bool place = false;
+            
+    //         while (l < r) {
+    //             int m = l + (r - l) / 2;
+
+    //             if (towers[m] <= k) {
+    //                 l = m + 1;
+    //             } else {
+    //                 r = m;
+    //                 place = true;
+    //             }
+    //         }
+
+    //         if (place) {
+    //             towers[r] = k;
+    //         } else {
+    //             towers.push_back(k);
+    //         }
+    //     }
+    // }
+
+    for (int i = 0; i < n; i++) {
         int k;
         cin >> k;
 
-        cubes.push_back({k, i});
+        auto it = upper_bound(towers.begin(), towers.end(), k);
+
+        if (it == towers.end()) {
+            towers.push_back(k);
+        } else {
+            *it = k;
+        }
     }
 
-    sort(cubes.begin(), cubes.end());
-
-    ll numTowers = 1;
-
-    for (int i = 1; i < n; i++) {
-        int cubeTop = cubes[i-1].second, cubeUnder = cubes[i].second;
-
-        if (cubeUnder > cubeTop) numTowers++;
-    }
-
-    cout << numTowers << "\n";
+    cout << towers.size() << "\n";
 }
