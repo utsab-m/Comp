@@ -2,6 +2,8 @@
 using namespace std;
 using ll = long long;
 
+int mod = (int)(1e9+7);
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -9,30 +11,19 @@ int main() {
     int n;
     cin >> n;
 
-    ll res = 0;
+    ll res = 1;
 
     vector<int> nums(n);
-    map<int, int> count;
+    unordered_map<int, int> count;
 
     for (int i = 0; i < n; i++) {
         cin >> nums[i];
         count[nums[i]]++;
     }
 
-    for (int i = 0; i < n; i++) {
-        ll ways = (1 << count.size() - 1);
-
-        for (auto c: count) {
-            if (c.first != nums[i]) {
-                ways = (ways * c.second) % (int)(10e9+7);
-            }
-        }
-
-        res = (res + ways) % (int)(10e9+7);
-
-        count[nums[i]]--;
-        if (!count[nums[i]]) count.erase(nums[i]);
+    for (auto it: count) {
+        res = ((res % mod) * (it.second + 1)) % mod;
     }
 
-    cout << res << "\n";
+    cout << res - 1 << "\n";
 }
