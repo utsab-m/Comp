@@ -13,12 +13,12 @@ int main() {
 
     ll res = 1;
 
-    vector<int> nums(n);
     unordered_map<int, int> count;
 
-    for (int i = 0; i < n; i++) {
-        cin >> nums[i];
-        count[nums[i]]++;
+    for (int i = 1; i <= n; i++) {
+        int x;
+        cin >> x;
+        count[x]++;
     }
 
     for (auto it: count) {
