@@ -18,7 +18,7 @@ int main() {
 
             char l = 'A';
 
-            while(l == ch || (c - 1 >= 0 && grid[r][c-1] == l) || (r - 1 >= 0 && grid[r-1][c] == l)) l++;
+            while (l == ch || (c - 1 >= 0 && grid[r][c-1] == l) || (r - 1 >= 0 && grid[r-1][c] == l)) l++;
 
             grid[r][c] = l;
             cout << l;
