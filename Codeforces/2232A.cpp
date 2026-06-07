@@ -21,20 +21,18 @@ int main() {
 
         sort(locs.begin(), locs.end());
         
-        int m = locs.size() / 2;
-        int i = m - 1, j = m + 1;
+        int i = 0, j = n-1;
 
         int calls = 0;
 
-        while (i >= 0 || j < n) {
-            while (i >= 0 && locs[i] == locs[m]) i--; 
-            while (j < n && locs[j] == locs[m]) j++; 
-            calls++;
-            i--;
-            j++;
+        while (i < j) {
+            if (locs[i] == locs[j]) break;
+            else calls++;
+            i++;
+            j--;
         }
 
         cout << calls << "\n";
-    }
     
+    }
 }

@@ -13,13 +13,17 @@ int main() {
         int n;
         cin >> n;
 
-        vector<int> nums(n), res(n);
+        vector<int> nums(n);
+        ll minH = 1e9, runningSum = 0;
 
         for (int i = 0; i < n; i++) {
-            int num;
-            cin >> num;
+            cin >> nums[i];
+            runningSum += nums[i];
+            minH = min(minH, runningSum / (i+1));
 
-            nums[]
+            cout << minH << " ";
         }
+        cout << "\n";
+
     }
 }
