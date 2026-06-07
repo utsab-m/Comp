@@ -15,14 +15,19 @@ int main() {
         int n;
         cin >> n;
 
-        vector<int> hops(n), divisors(n+1);
+        vector<int> divisors(n+1);
+        map<int, int> hops;
         int maxFrogs = 0;
 
-        for (int& hop: hops) cin >> hop;
+        for (int i = 0; i < n; i++) {
+            int hop;
+            cin >> hop;
+            hops[hop]++;
+        }
 
-        for (int i = 1; i <= n; i++) {
-            for (int j = hops[i-1]; j <= n; j += hops[i-1]) {
-                maxFrogs = max(maxFrogs, ++divisors[j]);
+        for (auto [hop, count]: hops) {
+            for (int i = hop; i <= n; i += hop) {
+                maxFrogs = max(maxFrogs, divisors[i] += count);
             }
         }
         
