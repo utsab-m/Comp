@@ -4,19 +4,21 @@ using ll = long long;
 
 const int MOD = 1e9+7;
 
-ll power(ll a, ll b) {
+ll power(ll a, ll b, int m) {
     if (b == 0) return 1;
     ll res = 1;
     while (b > 0) {
-        if (b % 2 == 1) (res *= a) %= MOD;
-        (a *= a) %= MOD;
+        if (b % 2 == 1) (res *= a) %= m;
+        (a *= a) %= m;
         b /= 2;
     }
     return res;
 }
 
 ll power(ll a, ll b, ll c) {
-    return power(a, power(b, c));
+    ll res = power(b, c, MOD-1);
+    res = power(a, res, MOD);
+    return res;
 }
 
 int main() {
