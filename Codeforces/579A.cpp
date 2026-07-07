@@ -11,12 +11,5 @@ int main() {
     int x;
     cin >> x;
 
-    int res = 0;
-    
-    while (x > 0) {
-        if (x & 1) ++res;        
-        x >>= 1;
-    }
-
-    cout << res << "\n";
+    cout << __builtin_popcountll(x) << '\n';
 }
