@@ -24,11 +24,8 @@ int main() {
     while (h <= l) {
         gondolas++;
         if (h == l) break;
-        if (p[h] + p[l] > x) h++;
-        else {
-            h++;
-            l--;
-        }
+        if (p[h] + p[l] <= x) l--;
+        h++;
     }
 
     cout << gondolas << "\n";
