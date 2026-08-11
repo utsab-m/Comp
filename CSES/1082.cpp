@@ -13,9 +13,7 @@ int main() {
 
     ll res = 0;
 
-    for (int i = 1; i <= n; i++) {
-        (res += i * (n / i)) %= MOD;
-    }
+    
 
-    cout << res << "\n";
+    cout << res << '\n';
 }

@@ -3,8 +3,9 @@ using namespace std;
 using ll = long long;
 
 const int MOD = 1e9+7;
-const int MAX = 500 * 501 / 4;
-ll dp[MAX+1];
+
+const int maxN = 500, maxSum = maxN * (maxN+1) / 4;
+ll dp[maxSum+1];
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -13,20 +14,19 @@ int main() {
     int n;
     cin >> n;
 
-    dp[0] = 1;
-
     int sum = n * (n+1) / 2;
-    if (sum % 2 == 1) {
+    if (sum % 2 != 0) {
         cout << 0 << '\n';
         return 0;
     }
-    int half = sum / 2;
 
-    for (int x = 1; x < n; ++x) {
-        for (int s = half; s - x >= 0; --s) {
-            (dp[s] += dp[s-x]) %= MOD;
+    dp[0] = 1;
+
+    for (int i = 1; i < n; ++i) {
+        for (int s = sum / 2; s - i >= 0; --s) {
+            (dp[s] += dp[s-i]) %= MOD;
         }
     }
-    
-    cout << dp[half] << '\n';
+
+    cout << dp[sum / 2] << '\n';
 }
