@@ -1,51 +1,45 @@
-#include <bits/stdc++.h>
+#include "bits/stdc++.h"
 using namespace std;
 using ll = long long;
 
-void print(char c, ll n) {
-    for (ll i = 0; i < n; i++) {
-        cout << c;
-    }
-}
+const int MOD = 1e9+7;
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+
     string s;
     cin >> s;
 
-    vector<ll> count(26, 0);
+    vector<int> count(26);
 
-    for (char c: s) count[c - 'A']++;
+    bool odd = false;
 
-    ll oddCount = 0;
+    for (char c: s) ++count[c - 'A'];
+    for (int c: count) {
+        if (c % 2 == 1) {
+            if (odd) {
+                cout << "NO SOLUTION" << '\n';
+                return 0;
+            } else {
+                odd = true;
+            }
+        }
+    }
+
+    string res;
     char oddChar;
 
-    for (int i = 0; i < 26; i++) {
-        if (count[i] % 2 == 1) {
-            oddCount++;
-            oddChar = 'A' + i;
-        }
+    for (int i = 0; i < 26; ++i) {
+        char c = 'A' + i;
+        int cnt = count[i];
+
+        if (cnt % 2 == 0) {
+            res += string(cnt / 2, c);
+        } else oddChar = c;
     }
+    
+    string t(res.rbegin(), res.rend());
 
-    if (oddCount > 1) {
-        cout << "NO SOLUTION";
-    } else {
-        for (int i = 0; i < 26; i++) {
-            if (count[i] % 2 == 0) {
-                print('A' + i, count[i] / 2);
-            }
-        }
-
-        print(oddChar, count[oddChar - 'A']);
-
-        for (int i = 25; i >= 0; i--) {
-            if (count[i] % 2 == 0) {
-                print('A' + i, count[i] / 2);
-            }
-        }
-    }
-
-    cout << "\n";
+    cout << (odd ? res + string(count[oddChar-'A'], oddChar) + t : res + t) << '\n';
 }

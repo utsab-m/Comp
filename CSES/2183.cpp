@@ -2,28 +2,28 @@
 using namespace std;
 using ll = long long;
 
+const int MOD = 1e9+7;
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
     int n;
     cin >> n;
+    vector<int> nums(n);
+    for (int& num: nums) cin >> num;
+    sort(nums.begin(), nums.end());
 
-    vector<int> coins(n);
+    ll MAX = 0;
 
-    for (int& coin: coins) cin >> coin;
-
-    sort(coins.begin(), coins.end());
-
-    ll coinSum = 1;
-
-    for (int i = 0; i < n; i++) {
-        if (coinSum < coins[i]) {
-            break;
+    for (int num: nums) {
+        if (MAX+1 < num) {
+            cout << MAX+1 << '\n';
+            return 0;
         } else {
-            coinSum += coins[i];
+            MAX += num;
         }
     }
 
-    cout << coinSum << "\n";
+    cout << MAX+1 << '\n';
 }

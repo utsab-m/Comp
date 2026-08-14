@@ -2,6 +2,8 @@
 using namespace std;
 using ll = long long;
 
+const int MOD = 1e9+7;
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -9,30 +11,22 @@ int main() {
     int n;
     cin >> n;
 
-    vector<int> songs(n+1);
-    for (int i = 1; i <= n; i++) {
-        cin >> songs[i];
-    }
+    int maxLength = 1;
 
-    int i = 1, j = 1;
-    set<int> curr;
-    int maxLength = INT_MIN;
+    vector<int> playlist(n+1);
+    for (int i = 1; i <= n; ++i) cin >> playlist[i];
+    map<int, int> lastSeen;
+    int l = 1;
+    for (int r = 1; r <= n; ++r) {
+        int song = playlist[r];
 
-    while (j <= n) {
-        int id = songs[j];
-
-        if (curr.find(id) != curr.end()) {
-            while (songs[i] != id) {
-                curr.erase(songs[i]);
-                i++;
-            }
-            i++;
+        if (lastSeen[song] >= l) {
+            l = lastSeen[song]+1;
         }
-        
-        curr.insert(id);
-        maxLength = max(maxLength, j - i + 1);
-        j++;
+        lastSeen[song] = r;
+
+        maxLength = max(maxLength, r-l+1);
     }
 
-    cout << maxLength << "\n";
+    cout << maxLength << '\n';
 }
