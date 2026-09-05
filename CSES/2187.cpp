@@ -58,8 +58,9 @@ int main() {
     string prefix;
     cin >> prefix;
 
-    if (!valid_prefix(prefix)) {
+    if (!valid_prefix(prefix) || n % 2 == 1) {
         cout << 0 << '\n';
+        return 0;
     }
 
     int left = 0, right = 0;
@@ -68,7 +69,10 @@ int main() {
         else ++right;
     }
 
+    left = n/2 - left;
+    right = n/2 - right;
+
     precompute();
 
-    cout << ncr(left+right, right) - ncr(left+right, right-1) << '\n';
+    cout << (ncr(left+right, right) - ncr(left+right, left-1) + MOD) % MOD << '\n';
 }
