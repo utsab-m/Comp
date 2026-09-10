@@ -10,15 +10,15 @@ int main() {
     cin.tie(nullptr);
 
     // check if sqrt is prime
-    int lim = sqrt(MAXN);
-
-    vector<bool> comp(lim+1);
+    vector<bool> comp((int)1e6+1);
     set<ll> tprimes;
 
-    for (int i = 2; i <= lim; ++i) {
+    cout << comp.size();
+
+    for (ll i = 2; i * i <= MAXN; ++i) {
         if (!comp[i]) {
             tprimes.insert(i * i);
-            for (int j = i * i; j <= lim; j += i) {
+            for (ll j = i * i; j * j < MAXN; j += i) {
                 comp[j] = true;
             }
         }
