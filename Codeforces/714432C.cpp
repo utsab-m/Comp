@@ -2,7 +2,6 @@
 using namespace std;
 using ll = long long;
 
-const int MOD = 1e9+7;
 const ll MAXN = 1e12;
 
 int main() {
@@ -10,15 +9,14 @@ int main() {
     cin.tie(nullptr);
 
     // check if sqrt is prime
-    vector<bool> comp((ll)sqrt(MAXN)+1);
-    set<ll> tprimes;
-
-    cout << comp.size();
+    ll limit = round(sqrt(MAXN));
+    vector<bool> comp(limit+1, false);
+    
+    comp[0] = comp[1] = true;
 
     for (ll i = 2; i * i <= MAXN; ++i) {
         if (!comp[i]) {
-            tprimes.insert(i * i);
-            for (ll j = i * i; j * j <= MAXN; j += i) {
+            for (ll j = i * i; j <= limit; j += i) {
                 comp[j] = true;
             }
         }
@@ -30,9 +28,10 @@ int main() {
     while (n--) {
         ll x;
         cin >> x;
-        bool is_tprime = tprimes.find(x) != tprimes.end();
+        
+        ll root = round(sqrt(x));
 
-        if (is_tprime) cout << "YES" << '\n';
+        if (root * root == x && !comp[root]) cout << "YES" << '\n';
         else cout << "NO" << '\n';
     }
 }
