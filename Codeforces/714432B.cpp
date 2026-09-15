@@ -9,11 +9,13 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int l = 1, r = 1e6, m = l + (r-l) / 2;
-    cout << m << '\n';
+    int l = 1, r = 1e6;
+    
 
     while (l < r) {
-        fflush(stdout);
+        int m = l + (r-l+1) / 2;
+        cout << m << endl;
+
         string sign;
         cin >> sign;        
 
@@ -22,9 +24,7 @@ int main() {
         } else {
             l = m;
         }
-        m = l + (r-l) / 2;
-        cout << m << '\n';
     }
 
-    cout << "! " << m << '\n';
+    cout << "! " << l << endl;
 }
