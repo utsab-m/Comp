@@ -22,12 +22,15 @@ int main() {
     bool test = false;
 
     while (t--) {
-        bool ans = true;
-        char c;
-        for (int i=1; i<=200; ++i) {
-            cout << print(ans) << '\n';
+        for (int i=1; i<=100; ++i) {
+            int ok = rand();
+            bool ans = (ok % 2 == 0);
+            char c;
+            cout << print(ans) << endl;
             cin >> c;
             ans = !read(c);
+            cout << print(ans) << endl;
+            cin >> c;
         }
     }
 }
