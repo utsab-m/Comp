@@ -14,20 +14,15 @@ void solve() {
         ++cnt[a];
     }
 
-    int a=0, b=0;
-    int mex_a=INT_MAX, mex_b=INT_MAX;
-
-    for (const auto& [card, count]: cnt) {
-        int alice_count = (a==b) ? ceil(count/2.0) : floor(count/2.0);
-        int bob_count = count - alice_count;
-
-        a += alice_count; b += bob_count;
-
-        if (card < mex_a && alice_count < k) mex_a = card;
-        if (card < mex_b && bob_count < k) mex_b = card;
+    bool win = false;
+    for (int x=0; x<=n; ++x) {
+        if (cnt[x] < 2*k) {
+            win = (cnt[x] == 2*k-1);
+            break;
+        }
     }
-
-    cout << ((mex_a == mex_b) ? "NO" : "YES") << '\n';
+    
+    cout << (win ? "YES" : "NO") << '\n';
 }
 
 int main() {
