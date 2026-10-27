@@ -4,30 +4,65 @@ using ll = long long;
 
 const int MOD = 1e9+7;
 
-int sign(ll x) {
-    if (x == 0) return 0;
-    else if (x < 0) return -1;
+struct Point {
+    ll x, y;
+
+    Point operator-(const Point& o) const {
+        return {x-o.x, y-o.y};
+    }
+
+    ll cross(const Point& o) const {
+        return x * o.y - y * o.x;
+    }
+
+    ll cross(const Point& a, const Point& b) {
+        return (a - *this).cross(b - *this);
+    }
+};
+
+bool onSegment(Point p, Point a, Point b) {
+    return min(a.x, b.x) <= p.x && p.x <= max(a.x, b.x)
+        && min(a.y, b.y) <= p.y && p.y <= max(a.y, b.y);
+}
+
+int sign(ll num) {
+    if (num < 0) return -1;
+    else if (num == 0) return 0;
     else return 1;
 }
 
-ll cross_product(ll x1, ll y1, ll x2, ll y2, ll x3, ll y3) {
-    ll vx=x2-x1, vy=y2-y1, ux=x3-x2, uy=y3-y2;
-    return vx * uy - vy * ux;
-}
-
-bool between(ll x1, ll y1, ll x2, ll y2, ll x3, ll y3) {
-    return min(x1, x2) <= x3 && x3 <= max(x1, x2) && min(y1, y2) <= y3 && y3 <= max(y1, y2);
-}
-
 void solve() {
-    ll x1, y1, x2, y2, x3, y3, x4, y4; cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
-    int cross3 = sign(cross_product(x1, y1, x2, y2, x3, y3)), cross4 = sign(cross_product(x1, y1, x2, y2, x4, y4));
-    bool between3 = between(x1, y1, x2, y3, x3, y3), between4 = between(x1, y1, x2, y3, x4, y4);
-    if ((between3 && cross3 == 0) || (between4 && cross4 == 0) || cross3 != cross4) {
-        cout << "YES" << '\n';
-    } else {
-        cout << "NO" << '\n';
+    Point p1, p2, p3, p4;
+    cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y >> p4.x >> p4.y;
+
+    int cp1 = sign(p1.cross(p2, p3));
+    int cp2 = sign(p1.cross(p2, p4));
+    int cp3 = sign(p3.cross(p4, p1));
+    int cp4 = sign(p3.cross(p4, p2));
+
+    if (cp1 != cp2 && cp3 != cp4) {
+        cout << "YES\n";
+        return;
     }
+
+    if (cp1 == 0 && onSegment(p3, p1, p2)) {
+        cout << "YES\n";
+        return;
+    }
+    if (cp2 == 0 && onSegment(p4, p1, p2)) {
+        cout << "YES\n";
+        return;
+    }
+    if (cp3 == 0 && onSegment(p1, p3, p4)) {
+        cout << "YES\n";
+        return;
+    }
+    if (cp4 == 0 && onSegment(p2, p3, p4)) {
+        cout << "YES\n";
+        return;
+    }
+
+    cout << "NO\n";
 }
 
 int main() {
